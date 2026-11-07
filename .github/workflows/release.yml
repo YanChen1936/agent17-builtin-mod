@@ -42,6 +42,8 @@ jobs:
           Copy-Item "game/script/Menu/homemenu.rpy" dist/
           Copy-Item "renpy/audio/audio.py" dist/
           Copy-Item "README.md" dist/
+          Copy-Item "使用说明.md" dist/
+          Copy-Item "docs" dist/ -Recurse
           Compress-Archive -Path "dist/*" -DestinationPath "agent17-builtin-mod-$tag.zip" -Force
           Get-Item "agent17-builtin-mod-$tag.zip" | Format-List Name, Length
 
@@ -52,4 +54,5 @@ jobs:
           name: Agent17 内置修改器 ${{ steps.meta.outputs.tag }}
           files: agent17-builtin-mod-*.zip
           generate_release_notes: true
+          overwrite_files: true
           fail_on_unmatched_files: true

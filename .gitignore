@@ -7,6 +7,11 @@
 !/.github/workflows/release.yml
 !/.gitignore
 !/README.md
+!/使用说明.md
+!/docs/
+/docs/*
+!/docs/screenshot-item.png
+!/docs/screenshot-search.png
 !/game/
 /game/*
 !/game/script/
