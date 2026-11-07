@@ -1,5 +1,10 @@
-﻿# 只跟踪修改器源码与引擎补丁，游戏资源全部忽略
+# 只跟踪修改器源码、引擎补丁与 CI 配置，游戏资源全部忽略
 /*
+!/.github/
+/.github/*
+!/.github/workflows/
+/.github/workflows/*
+!/.github/workflows/release.yml
 !/.gitignore
 !/README.md
 !/game/

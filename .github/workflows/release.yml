@@ -1,0 +1,55 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "要发布的 tag（例如 v7.4.5）"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve tag
+        id: meta
+        shell: pwsh
+        run: |
+          $tag = "${{ github.ref_name }}"
+          if ("${{ github.event_name }}" -eq "workflow_dispatch") { $tag = "${{ inputs.tag }}" }
+          if ([string]::IsNullOrWhiteSpace($tag)) { throw "无法确定 tag" }
+          "tag=$tag" >> $env:GITHUB_OUTPUT
+
+      - name: Build zip
+        shell: pwsh
+        run: |
+          $tag = "${{ steps.meta.outputs.tag }}"
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          Copy-Item "game/script/ActorScript/cheat_menu.rpy" dist/
+          Copy-Item "game/script/Menu/homemenu.rpy" dist/
+          Copy-Item "renpy/audio/audio.py" dist/
+          Copy-Item "README.md" dist/
+          Compress-Archive -Path "dist/*" -DestinationPath "agent17-builtin-mod-$tag.zip" -Force
+          Get-Item "agent17-builtin-mod-$tag.zip" | Format-List Name, Length
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.meta.outputs.tag }}
+          name: Agent17 内置修改器 ${{ steps.meta.outputs.tag }}
+          files: agent17-builtin-mod-*.zip
+          generate_release_notes: true
+          fail_on_unmatched_files: true
