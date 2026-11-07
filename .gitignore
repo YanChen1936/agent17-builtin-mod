@@ -1,0 +1,19 @@
+# 只跟踪修改器源码与引擎补丁，游戏资源全部忽略
+/*
+!/.gitignore
+!/README_MOD.md
+!/game/
+/game/*
+!/game/script/
+/game/script/*
+!/game/script/ActorScript/
+/game/script/ActorScript/*
+!/game/script/ActorScript/cheat_menu.rpy
+!/game/script/Menu/
+/game/script/Menu/*
+!/game/script/Menu/homemenu.rpy
+!/renpy/
+/renpy/*
+!/renpy/audio/
+/renpy/audio/*
+!/renpy/audio/audio.py
