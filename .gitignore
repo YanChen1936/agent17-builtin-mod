@@ -1,7 +1,7 @@
-# 只跟踪修改器源码与引擎补丁，游戏资源全部忽略
+﻿# 只跟踪修改器源码与引擎补丁，游戏资源全部忽略
 /*
 !/.gitignore
-!/README_MOD.md
+!/README.md
 !/game/
 /game/*
 !/game/script/
